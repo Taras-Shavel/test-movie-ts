@@ -3,21 +3,24 @@ import {moviesService} from "../../services";
 import {IMovie, IMovies} from "../../interfaces";
 
 interface IMovieState {
-    movies: IMovies[];
+    movies: IMovie[];
+    currentPage: number
+    total_page: number
 
 }
 
 const initialState: IMovieState= {
     movies: [],
-
+    currentPage: 1,
+    total_page: 500
 
 };
 
-const getAll = createAsyncThunk<IMovies[], void>(
+const getAll = createAsyncThunk<IMovies, number>(
     'moviesSlice/getAll',
-    async (_, thunkAPI) => {
+    async (currentPage, thunkAPI) => {
         try {
-            const {data} = await moviesService.getAll();
+            const {data} = await moviesService.getAll(currentPage);
             return data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -31,7 +34,9 @@ const slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getAll.fulfilled, (state, action) => {
-            state.movies = action.payload
+            state.movies = action.payload.results
+            state.currentPage = action.payload.page
+
 
         });
 

@@ -8,7 +8,6 @@ function App() {
   return (
     <Routes>
       <Route path={'/'} element={<MainLayouts/>}>
-        <Route index element={<Navigate to={'movies'}/> }/>
         <Route path={'movies'} element={<MoviesPage/>}/>
       </Route>
 

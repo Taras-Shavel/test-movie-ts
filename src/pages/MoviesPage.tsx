@@ -4,8 +4,8 @@ import {MoviePagination, Movies} from "../components";
 const MoviesPage = () => {
     return (
         <div>
-            <Movies/>
             <MoviePagination/>
+            <Movies/>
         </div>
     );
 };

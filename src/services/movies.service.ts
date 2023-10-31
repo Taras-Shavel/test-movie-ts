@@ -4,7 +4,7 @@ import {axiosService} from "./axios.service";
 import {urls} from "../constants";
 
 const moviesService = {
-    getAll: ():IRes<IMovies[]> => axiosService.get(urls.movies)
+    getAll: (page = 1):IRes<IMovies> => axiosService.get(urls.movies, {params: {page}})
 }
 
 export {
